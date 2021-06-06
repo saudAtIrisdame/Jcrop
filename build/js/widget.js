@@ -10,11 +10,11 @@ import Animate from "./animate";
 import { v4 as uuid } from "uuid";
 
 class Widget extends ConfObj {
-  constructor(el, options = {}) {
+  constructor(el, options = {}, id = null) {
     super(el, options);
     this.pos = Rect.from(this.el);
     this.init();
-    this.id = uuid();
+    this.id = !!id ? id : uuid();
   }
 
   init() {
@@ -154,12 +154,12 @@ class Widget extends ConfObj {
   }
 }
 
-Widget.create = function (options = {}) {
+Widget.create = function (options = {}, id = null) {
   const el = document.createElement("div");
   const opts = extend({}, Defaults, options);
   el.setAttribute("tabindex", "0");
   el.className = opts.cropperClass || "jcrop-widget";
-  return new (options.widgetConstructor || Widget)(el, opts);
+  return new (options.widgetConstructor || Widget)(el, opts, id);
 };
 
 export default Widget;

@@ -1910,6 +1910,7 @@ var Widget = function (_ConfObj) {
 
   function Widget(el) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
     _classCallCheck(this, Widget);
 
@@ -1917,7 +1918,7 @@ var Widget = function (_ConfObj) {
 
     _this.pos = _rect2.default.from(_this.el);
     _this.init();
-    _this.id = (0, _uuid.v4)();
+    _this.id = !!id ? id : (0, _uuid.v4)();
     return _this;
   }
 
@@ -2084,12 +2085,13 @@ var Widget = function (_ConfObj) {
 
 Widget.create = function () {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
   var el = document.createElement("div");
   var opts = (0, _extend2.default)({}, _defaults2.default, options);
   el.setAttribute("tabindex", "0");
   el.className = opts.cropperClass || "jcrop-widget";
-  return new (options.widgetConstructor || Widget)(el, opts);
+  return new (options.widgetConstructor || Widget)(el, opts, id);
 };
 
 exports.default = Widget;
